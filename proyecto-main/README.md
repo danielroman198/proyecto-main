@@ -1,1 +1,0 @@
-CUENTA DJANGO SUPER ADMIN    admin/admin2025
