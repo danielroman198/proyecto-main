@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
 
     <link rel="stylesheet" href="{% static 'css/global.css'%}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,6 +32,11 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand fw-bold" href="{% url 'inicio'%}">MANAKEA TOURS</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
@@ -102,7 +108,6 @@
                 </div>
             </div>
 
-            
             <div class="col-md-6 mb-4">
                 <div class="border p-4 h-100" style="background-color: rgba(0, 0, 0, 0.5);">
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -170,102 +175,96 @@
     </div>
 
     <section class="section-clima-mapa my-5">
-  <div class="container">
-    <div class="row justify-content-center gap-4">
+        <div class="container">
+            <div class="row justify-content-center gap-4">
 
-      <!-- API CLIMA -->
-      <div class="col-md-5 clima-box">
-        <div class="card-custom">
-          <h5 class="text-center text-primary fw-bold">
-            <i class="fas fa-cloud-sun fa-lg me-2"></i> CLIMA ACTUAL</h5>
-          <div id="clima" class="text-center mt-3">
-            <div class="icono-decorativo"><i class="fas fa-sun"></i></div>
-            <p id="ciudad">Cargando ciudad...</p>
-            <p id="temperatura">Cargando temperatura...</p>
-            <p id="descripcion">Cargando descripción...</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- API MAPA -->
-      <div class="col-md-5 mapa-box">
-        <div class="card-custom">
-          <h5 class="text-center text-primary fw-bold">
-            <i class="fas fa-map-marker-alt fa-lg me-2"></i> UBICACIÓN EN EL MAPA </h5>
-          <div id="map" style="height: 300px; border-radius: 10px;"></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-        <!-- Script para obtener el clima, consumiendo la API -->
-<script>
-  const apiKeyWeather = "1e300d5e48a8b7b31c6bb73937d9ec43";
-  const ciudad = "san jose de maipo,santiago";
-
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKeyWeather}&units=metric&lang=es`)
-    .then(res => res.json())
-    .then(data => {
-      const temp = data.main.temp;
-      const descripcion = data.weather[0].description;
-      const ciudad = data.name;
-      const icono = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
-
-      
-      document.getElementById("temperatura").textContent = `Temperatura: ${temp}°C`;
-      document.getElementById("descripcion").textContent = `Descripción: ${descripcion}`;
-      document.getElementById("ciudad").textContent = `Ciudad: ${ciudad}`;
-      document.getElementById("icono").src = icono;
-    })
-    .catch(err => console.log(err));
-</script>
-
-<!-- Script para inicializar Google Maps y coordenadas --> 
-<script>
-  function initMap() {
-    const cajonMaipo = { lat: -33.75, lng: -70.35 };  // Coordenadas del Cajón del Maipo
-    const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 10,
-      center: cajonMaipo,
-    });
-    new google.maps.Marker({
-      position: cajonMaipo,
-      map: map,
-      title: "CAJON DEL MAIPO"
-    });
-  }
-</script>
-</section>
-
-        <footer class="bg-dark text-center text-white py-4 mt-5">
-            <div class="container">
-                <div class="mb-3">
-                    <a href="https://www.instagram.com" target="_blank" class="btn btn-outline-light mx-1">
-                        <i class="bi bi-instagram"></i>
-                    </a>
-                    <a href="https://www.twitter.com" target="_blank" class="btn btn-outline-light mx-1">
-                        <i class="bi bi-twitter"></i>
-                    </a>
-                    <a href="https://www.tiktok.com" target="_blank" class="btn btn-outline-light mx-1">
-                        <i class="bi bi-tiktok"></i>
-                    </a>
-                    <a href="https://www.facebook.com" target="_blank" class="btn btn-outline-light mx-1">
-                        <i class="bi bi-facebook"></i>
-                    </a>
+                <div class="col-md-5 clima-box">
+                    <div class="card-custom">
+                        <h5 class="text-center text-primary fw-bold">
+                            <i class="fas fa-cloud-sun fa-lg me-2"></i> CLIMA ACTUAL</h5>
+                        <div id="clima" class="text-center mt-3">
+                            <div class="icono-decorativo"><i class="fas fa-sun"></i></div>
+                            <img id="icono" src="" alt="Icono del Clima" class="mb-2" style="max-width: 50px;">
+                            <p id="ciudad">Cargando ciudad...</p>
+                            <p id="temperatura">Cargando temperatura...</p>
+                            <p id="descripcion">Cargando descripción...</p>
+                        </div>
+                    </div>
                 </div>
-                <p class="mb-0 small">&copy; 2025 Todos los derechos reservados.</p>
+
+                <div class="col-md-5 mapa-box">
+                    <div class="card-custom">
+                        <h5 class="text-center text-primary fw-bold">
+                            <i class="fas fa-map-marker-alt fa-lg me-2"></i> UBICACIÓN EN EL MAPA </h5>
+                        <div id="map" style="height: 300px; border-radius: 10px;"></div>
+                    </div>
+                </div>
+
             </div>
-        </footer>
+        </div>
+
+        <script>
+            const apiKeyWeather = "1e300d5e48a8b7b31c6bb73937d9ec43";
+            const ciudadClima = "san jose de maipo,santiago";
+
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ciudadClima}&appid=${apiKeyWeather}&units=metric&lang=es`)
+                .then(res => res.json())
+                .then(data => {
+                    const temp = data.main.temp;
+                    const descripcion = data.weather[0].description;
+                    const ciudadName = data.name;
+                    const icono = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+
+                    document.getElementById("temperatura").textContent = `Temperatura: ${temp}°C`;
+                    document.getElementById("descripcion").textContent = `Descripción: ${descripcion}`;
+                    document.getElementById("ciudad").textContent = `Ciudad: ${ciudadName}`;
+                    document.getElementById("icono").src = icono;
+                })
+                .catch(err => console.log(err));
+        </script>
+
+        <script>
+            function initMap() {
+                const cajonMaipo = { lat: -33.75, lng: -70.35 };  // Coordenadas del Cajón del Maipo
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 10,
+                    center: cajonMaipo,
+                });
+                new google.maps.Marker({
+                    position: cajonMaipo,
+                    map: map,
+                    title: "CAJON DEL MAIPO"
+                });
+            }
+        </script>
+    </section>
+
+    <footer class="bg-dark text-center text-white py-4 mt-5">
+        <div class="container">
+            <div class="mb-3">
+                <a href="https://www.instagram.com" target="_blank" class="btn btn-outline-light mx-1">
+                    <i class="bi bi-instagram"></i>
+                </a>
+                <a href="https://www.twitter.com" target="_blank" class="btn btn-outline-light mx-1">
+                    <i class="bi bi-twitter"></i>
+                </a>
+                <a href="https://www.tiktok.com" target="_blank" class="btn btn-outline-light mx-1">
+                    <i class="bi bi-tiktok"></i>
+                </a>
+                <a href="https://www.facebook.com" target="_blank" class="btn btn-outline-light mx-1">
+                    <i class="bi bi-facebook"></i>
+                </a>
+            </div>
+            <p class="mb-0 small">&copy; 2025 Todos los derechos reservados.</p>
+        </div>
+    </footer>
 
 <script src="{% static 'js/carrito.js' %}"></script>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Script para cargar Google Maps -->
 <script async
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYqeLHZ9y433qxiJ2xwTxKTyq8cnF5TlU&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYqeLHZ9y433qxiJ2xwTxKTyq8cnF5TlU&callback=initMap">
 </script>
 
 </body>
