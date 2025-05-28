@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
             mainContent.classList.toggle('carrito-abierto');
         });
     }
-// Aquí podrías agregar la lógica para cargar dinámicamente
+    
     // Aquí podrías agregar la lógica para cargar dinámicamente
     // los items del carrito usando AJAX si es necesario.
 });
