@@ -1,0 +1,56 @@
+ /* Estilos para el contenedor del carrito desplegable */
+        #carrito-desplegable {
+            position: fixed; /* Para que se quede fijo al hacer scroll */
+            top: 0;
+            right: 0;
+            width: 300px; /* Ancho del panel */
+            height: 100%;
+            background-color: #f8f9fa; /* Un fondo claro */
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            transform: translateX(100%); /* Inicialmente fuera de la pantalla a la derecha */
+            transition: transform 0.3s ease-in-out; /* Animación suave */
+            z-index: 1050; /* Asegurarse de que esté por encima de otros elementos (navbar z-index es 1030) */
+        }
+
+        #carrito-desplegable.abierto {
+            transform: translateX(0); /* Deslizar hacia la izquierda al estar "abierto" */
+        }
+
+        .carrito-contenido {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .carrito-contenido h3 {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        #items-carrito {
+            flex-grow: 1; /* Para que los items empujen el total hacia abajo */
+            margin-bottom: 15px;
+            overflow-y: auto; /* En caso de muchos items */
+        }
+
+        .carrito-total {
+            padding-top: 10px;
+            border-top: 1px solid #ccc;
+            margin-bottom: 15px;
+            text-align: right;
+        }
+
+        .carrito-trigger {
+            cursor: pointer;
+        }
+
+        #main-content {
+            transition: margin-right 0.3s ease-in-out; /* Para mover el contenido principal cuando el carrito se abre */
+        }
+
+        #main-content.carrito-abierto {
+            margin-right: 300px; /* Igual al ancho del carrito */
+        }
+
+        

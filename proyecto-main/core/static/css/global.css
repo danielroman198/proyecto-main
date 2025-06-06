@@ -1,0 +1,121 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+}
+/* carousel estilo */
+.carousel-lide{
+    min-height: 380px
+  }
+
+  .card-img-top {
+    height: 300px;
+    object-fit: cover;
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 250px; 
+  }
+
+  .card-title,
+  .card-text {
+    text-align: center;
+  }
+
+  .btn {
+    margin-top: auto;
+
+  }
+
+  .icono-decorativo {
+  font-size: 80px; /* Tamaño del icono que se le quiere dar */
+  color: rgba(255, 193, 7, 0.4); /* Amarillo del icono */
+  text-align: center;
+  margin-top: 20px;
+}
+
+  .card-custom {
+  background: linear-gradient(135deg, #e0f7fa, #ffffff);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  min-height: 400px; /*Aquí defines la altura mínima del cuadro*/
+  transition: all 0.3s ease;
+}
+
+.card-custom:hover {
+  transform: scale(1.02);
+}
+
+.section-clima-mapa .row {
+  gap: 30px; /*Separación de 3cm aprox  entre Ambos cuadros CLIMA Y UBICACION*/
+}
+
+.section-actividades{
+
+  margin-top: 20px;
+}
+
+.section-gastronomia{
+
+  margin-top: 20px;
+}
+
+#clima p {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+#map {
+  width: 100%;
+  height: 300px;
+  border: 2px solid #007BFF;
+}
+
+/* Tamaño de la foto de background de Vista Inicio */
+.bg{
+  background-image: url(../img/cajon-1.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+/* Tamaño de la foto de background de Vista Hospedajes */
+.bg-2{
+  background-image: url(../img/cajon-2.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+/* Tamaño de la foto de background de Vista Actividad */
+.bg-3{
+  background-image: url(../img/cabalgata.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+/* Tamaño de la foto de background de Vista Gastronomia */
+.bg-4{
+  background-image: url(../img/cajon-4.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+/* Popover estilo red */*
+.popover{
+  color: crimson;
+}
+
+
+        

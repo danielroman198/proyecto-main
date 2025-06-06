@@ -1,0 +1,237 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Manakea - Registro</title>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'inicio'%}">MANAKEA TOURS</a>
+        </div>
+    </nav>
+
+    <div id="carouselExampleSlidesOnly" class="carousel slide border border-white" data-bs-ride="carousel" style="height: 300px;">
+        <div class="carousel-inner h-100">
+            <div class="carousel-item active position-relative h-100">
+                <img src="https://www.cvc.com.br/dicas-de-viagem/wp-content/uploads/2019/09/cajon-del-maipo-embalse-el-yeso-chile.jpg"
+                     class="d-block w-100 h-100 object-fit-cover" alt="Embalse El Yeso, Cajón del Maipo">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white bg-dark bg-opacity-50">
+                    <h1 class="h3">MANAKEA TOURS</h1>
+                    <p class="lead">Conecta con lo auténtico, viaja con el alma</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5 mb-5 d-flex justify-content-center align-items-center flex-grow-1">
+        <div class="col-md-6 col-12 form-container">
+            <h2 class="text-center mb-4">Regístrate</h2>
+
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="POST" id="registroClienteForm" name="registroClienteForm">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {% for error in form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="mb-3">
+                    {{ form.nombre.label_tag }}
+                    <input type="text" name="{{ form.nombre.name }}" id="{{ form.nombre.id_for_label }}"
+                           class="form-control {% if form.nombre.errors %}is-invalid{% endif %}"
+                           value="{{ form.nombre.value|default_if_none:'' }}"
+                           {% if form.nombre.field.required %}required{% endif %}>
+                    {% if form.nombre.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.nombre.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.apellido.label_tag }}
+                    <input type="text" name="{{ form.apellido.name }}" id="{{ form.apellido.id_for_label }}"
+                           class="form-control {% if form.apellido.errors %}is-invalid{% endif %}"
+                           value="{{ form.apellido.value|default_if_none:'' }}"
+                           {% if form.apellido.field.required %}required{% endif %}>
+                    {% if form.apellido.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.apellido.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.correo.label_tag }}
+                    <input type="email" name="{{ form.correo.name }}" id="{{ form.correo.id_for_label }}"
+                           class="form-control {% if form.correo.errors %}is-invalid{% endif %}"
+                           value="{{ form.correo.value|default_if_none:'' }}"
+                           {% if form.correo.field.required %}required{% endif %}>
+                    {% if form.correo.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.correo.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.password.label_tag }}
+                    <div class="input-group">
+                        <input type="password" name="{{ form.password.name }}" id="{{ form.password.id_for_label }}"
+                               class="form-control {% if form.password.errors %}is-invalid{% endif %}"
+                               {% if form.password.field.required %}required{% endif %}>
+                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('{{ form.password.id_for_label }}', this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                        {% if form.password.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.password.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form.confirm_password.label_tag }}
+                    <div class="input-group">
+                        <input type="password" name="{{ form.confirm_password.name }}" id="{{ form.confirm_password.id_for_label }}"
+                               class="form-control {% if form.confirm_password.errors %}is-invalid{% endif %}"
+                               {% if form.confirm_password.field.required %}required{% endif %}>
+                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('{{ form.confirm_password.id_for_label }}', this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                        {% if form.confirm_password.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.confirm_password.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div id="passwordMismatchFeedback" class="invalid-feedback" style="display: none;">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form.telefono.label_tag }}
+                    <input type="text" name="{{ form.telefono.name }}" id="{{ form.telefono.id_for_label }}"
+                           class="form-control {% if form.telefono.errors %}is-invalid{% endif %}"
+                           value="{{ form.telefono.value|default_if_none:'' }}"
+                           {% if form.telefono.field.required %}required{% endif %}>
+                    {% if form.telefono.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.telefono.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <button type="submit" class="btn btn-primary btn-lg">Registrarse</button>
+                    <a href="{% url 'login'%}" class="btn btn-outline-primary btn-lg">Iniciar sesión</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-center text-white py-4 mt-5">
+        <div class="container">
+            <div class="mb-3">
+                <a href="https://www.instagram.com" target="_blank" class="btn btn-outline-light mx-1">
+                    <i class="bi bi-instagram"></i>
+                </a>
+                <a href="https://www.twitter.com" target="_blank" class="btn btn-outline-light mx-1">
+                    <i class="bi bi-twitter"></i>
+                </a>
+                <a href="https://www.tiktok.com" target="_blank" class="btn btn-outline-light mx-1">
+                    <i class="bi bi-tiktok"></i>
+                </a>
+                <a href="https://www.facebook.com" target="_blank" class="btn btn-outline-light mx-1">
+                    <i class="bi bi-facebook"></i>
+                </a>
+            </div>
+            <p class="mb-0 small">&copy; 2025 Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function togglePassword(id, button) {
+            const input = document.getElementById(id);
+            const icon = button.querySelector('i');
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                input.type = "password";
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+
+        document.getElementById('registroClienteForm').addEventListener('submit', function(event) {
+            const passwordField = document.getElementById('id_password');
+            const confirmPasswordField = document.getElementById('id_confirm_password');
+            const passwordMismatchFeedback = document.getElementById('passwordMismatchFeedback');
+
+            if (passwordField.value !== confirmPasswordField.value) {
+                event.preventDefault();
+                confirmPasswordField.classList.add('is-invalid');
+                passwordMismatchFeedback.style.display = 'block';
+            } else {
+                confirmPasswordField.classList.remove('is-invalid');
+                passwordMismatchFeedback.style.display = 'none';
+            }
+        });
+
+        document.getElementById('id_password').addEventListener('input', function() {
+            const confirmPasswordField = document.getElementById('id_confirm_password');
+            const passwordMismatchFeedback = document.getElementById('passwordMismatchFeedback');
+            confirmPasswordField.classList.remove('is-invalid');
+            passwordMismatchFeedback.style.display = 'none';
+        });
+
+        document.getElementById('id_confirm_password').addEventListener('input', function() {
+            const confirmPasswordField = document.getElementById('id_confirm_password');
+            const passwordMismatchFeedback = document.getElementById('passwordMismatchFeedback');
+            confirmPasswordField.classList.remove('is-invalid');
+            passwordMismatchFeedback.style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>

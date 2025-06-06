@@ -1,0 +1,262 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'css/global.css' %}">
+        <link rel="stylesheet" href="{% static 'css/carrito.css' %}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <title>Manakea - Gastronomía</title>
+    </head>
+    <body>
+
+    <div id="carrito-desplegable" class="carrito-desplegable">
+        <div class="carrito-contenido">
+            <h3>Tu Carrito</h3>
+            <div id="items-carrito">
+                <p>El carrito está vacío.</p>
+            </div>
+            <div class="carrito-total">
+                <strong>Total: $<span id="total-carrito">0</span></strong>
+            </div>
+            <a href="{% url 'carrito' %}" class="btn btn-success btn-block">Ir al Carrito Completo</a>
+        </div>
+    </div>
+
+    {# INICIO DEL DIV QUE ENVUELVE EL CONTENIDO PRINCIPAL #}
+    <div id="main-content">
+        <section class="bg-4">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container">
+                        <a class="navbar-brand fw-bold" href="{% url 'inicio'%}">MANAKEA TOURS</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                            <ul class="navbar-nav">
+                                {% if user.is_authenticated %}
+                                    <li class="nav-item d-flex align-items-center">
+                                        <span class="nav-link welcome-message">
+                                            BIENVENIDO {{ user.nombre|upper }} {{ user.apellido|upper }}
+                                            {% if user.tipo_usuario %}
+                                                <span class="user-role">({{ user.tipo_usuario.tipo_nombre|upper }})</span>
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'hospedaje' %}">HOSPEDAJE</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'actividad' %}">ACTIVIDADES</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'gastronomia' %}">GASTRONOMÍA</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'perfil' %}">PERFIL</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link carrito-trigger" href="#">
+                                            <i class="bi bi-cart"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link btn btn-outline-danger btn-sm ms-2" href="{% url 'logout' %}">Cerrar Sesión</a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'registro' %}">Registrarse</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+
+            <div id="carouselExampleSlidesOnly" class="carousel slide border border-white" data-bs-ride="carousel" style="height: 300px;">
+                <div class="carousel-inner h-100">
+                    <div class="carousel-item active position-relative h-100">
+                        <img src="{% static 'img/hombre-sentado.jpg'%}"
+                            class="d-block w-100 h-100 object-fit-cover" alt="Embalse El Yeso, Cajón del Maipo">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white bg-dark bg-opacity-50">
+                            <h1 class="h3">Bienvenido a Manakea</h1>
+                            <p class="lead">Conecta con lo auténtico, viaja con el alma</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section-gastronomia">
+                <center><h1>GASTRONOMIA</h1></center>
+                <div class="container my-5">
+                    <div class="row justify-content-center">
+                        <div class="card mx-2 text-center" style="width: 25rem;">
+                            <img src="https://www.latabernarestaurant.cl/wp-content/uploads/2023/09/Galeria-La-Taberna-Restaurant-4.jpg" class="card-img-top" alt="Hospedaje">
+                            <div class="card-body">
+                                <h5 class="card-title">LA TABERNA</h5>
+                                <p>Vive la experiencia de sabores únicos en un ambiente rústico y acogedor, con lo mejor de la cocina chilena tradicional.</p>
+                                {% if user.is_authenticated %}
+                                    {# Si el usuario está autenticado, el botón enlaza a la página de reserva real #}
+                                    <a href="{% url 'carrito'  %}" class="btn btn-success">Reservar</a>
+                                {% else %}
+                                    {# Si no está autenticado, muestra el popover #}
+                                    <button type="button" class="btn btn-primary"
+                                    data-bs-toggle="popover" data-bs-placement="left"
+                                    data-bs-custom-class="custom-popover"
+                                    data-bs-title="Advertencia"
+                                    data-bs-content="Necesitas estar registrado para poder acceder al carrito de compras y poder reservar!!">
+                                    Reservar
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card mx-2 text-center" style="width: 25rem;">
+                            <img src="https://www.cajondelmaipo.com/wp-content/uploads/2022/12/restaurante_casa_bosque_02.webp" class="card-img-top" alt="Actividades">
+                            <div class="card-body">
+                                <h5 class="card-title">CASA BOSQUE</h5>
+                                <p>Descubre un lugar mágico entre los árboles, donde la arquitectura encantada y la gastronomía gourmet se fusionan en una experiencia inolvidable.</p>
+                                {% if user.is_authenticated %}
+                                    {# Si el usuario está autenticado, el botón enlaza a la página de reserva real #}
+                                    <a href="{% url 'carrito'  %}" class="btn btn-success">Reservar</a>
+                                {% else %}
+                                    {# Si no está autenticado, muestra el popover #}
+                                    <button type="button" class="btn btn-primary"
+                                    data-bs-toggle="popover" data-bs-placement="left"
+                                    data-bs-custom-class="custom-popover"
+                                    data-bs-title="Advertencia"
+                                    data-bs-content="Necesitas estar registrado para poder acceder al carrito de compras y poder reservar!!">
+                                    Reservar
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card mx-2 text-center" style="width: 25rem;">
+                            <img src="https://admin.kunapak.com/uploads/imagenes/4aba8fed35ffdc89f9a471e05c737f35b14d1197.jpg" class="card-img-top" alt="Gastronomía">
+                            <div class="card-body">
+                                <h5 class="card-title">LA PETITE FRANCE</h5>
+                                <p>Déjate seducir por los aromas y sabores de Francia en el corazón del Cajón del Maipo. Elegancia, romanticismo y alta cocina te esperan.</p>
+                                {% if user.is_authenticated %}
+                                    {# Si el usuario está autenticado, el botón enlaza a la página de reserva real #}
+                                    <a href="{% url 'carrito'  %}" class="btn btn-success">Reservar</a>
+                                {% else %}
+                                    {# Si no está autenticado, muestra el popover #}
+                                    <button type="button" class="btn btn-primary"
+                                    data-bs-toggle="popover" data-bs-placement="left"
+                                    data-bs-custom-class="custom-popover"
+                                    data-bs-title="Advertencia"
+                                    data-bs-content="Necesitas estar registrado para poder acceder al carrito de compras y poder reservar!!">
+                                    Reservar
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container my-5">
+                    <div class="row justify-content-center">
+                        <div class="card mx-2 text-center" style="width: 25rem;">
+                            <img src="https://www.cajondelmaipo.com/wp-content/uploads/2022/07/trattoria_italiana_calypso_03.webp" class="card-img-top" alt="Hospedaje">
+                            <div class="card-body">
+                                <h5 class="card-title">TRATTORIA CALYPSO</h5>
+                                <p>Sabores italianos auténticos con un toque familiar. Pastas artesanales, vinos seleccionados y un ambiente que te transporta a la Toscana.</p>
+                                {% if user.is_authenticated %}
+                                    {# Si el usuario está autenticado, el botón enlaza a la página de reserva real #}
+                                    <a href="{% url 'carrito'  %}" class="btn btn-success">Reservar</a>
+                                {% else %}
+                                    {# Si no está autenticado, muestra el popover #}
+                                    <button type="button" class="btn btn-primary"
+                                    data-bs-toggle="popover" data-bs-placement="left"
+                                    data-bs-custom-class="custom-popover"
+                                    data-bs-title="Advertencia"
+                                    data-bs-content="Necesitas estar registrado para poder acceder al carrito de compras y poder reservar!!">
+                                    Reservar
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card mx-2 text-center" style="width: 25rem;">
+                            <img src="https://www.parquealmendro.com/imagenes/restaurant_parque_almendro.jpg" class="card-img-top" alt="Actividades">
+                            <div class="card-body">
+                                <h5 class="card-title">PARQUE ALMAGRO</h5>
+                                <p>Ideal para disfrutar en familia, rodeado de naturaleza y con una propuesta culinaria fresca y local que encanta a grandes y chicos.</p>
+                                {% if user.is_authenticated %}
+                                    {# Si el usuario está autenticado, el botón enlaza a la página de reserva real #}
+                                    <a href="{% url 'carrito'  %}" class="btn btn-success">Reservar</a>
+                                {% else %}
+                                    {# Si no está autenticado, muestra el popover #}
+                                    <button type="button" class="btn btn-primary"
+                                    data-bs-toggle="popover" data-bs-placement="left"
+                                    data-bs-custom-class="custom-popover"
+                                    data-bs-title="Advertencia"
+                                    data-bs-content="Necesitas estar registrado para poder acceder al carrito de compras y poder reservar!!">
+                                    Reservar
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card mx-2 text-center" style="width: 25rem;">
+                            <img src="https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2023/06/29/16880447933319.jpg" class="card-img-top" alt="Gastronomía">
+                            <div class="card-body">
+                                <h5 class="card-title">CHALET DE PIEDRA</h5>
+                                <p>Una joya culinaria escondida entre montañas. Ambiente cálido, atención personalizada y platos que celebran la tradición gourmet de la zona.</p>
+                                {% if user.is_authenticated %}
+                                    {# Si el usuario está autenticado, el botón enlaza a la página de reserva real #}
+                                    <a href="{% url 'carrito'  %}" class="btn btn-success">Reservar</a>
+                                {% else %}
+                                    {# Si no está autenticado, muestra el popover #}
+                                    <button type="button" class="btn btn-primary"
+                                    data-bs-toggle="popover" data-bs-placement="left"
+                                    data-bs-custom-class="custom-popover"
+                                    data-bs-title="Advertencia"
+                                    data-bs-content="Necesitas estar registrado para poder acceder al carrito de compras y poder reservar!!">
+                                    Reservar
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="bg-dark text-center text-white py-4 mt-5">
+                <div class="container">
+                    <div class="mb-3">
+                        <a href="https://www.instagram.com" target="_blank" class="btn btn-outline-light mx-1">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="https://www.twitter.com" target="_blank" class="btn btn-outline-light mx-1">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="https://www.tiktok.com" target="_blank" class="btn btn-outline-light mx-1">
+                            <i class="bi bi-tiktok"></i>
+                        </a>
+                        <a href="https://www.facebook.com" target="_blank" class="btn btn-outline-light mx-1">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                    </div>
+                    <p class="mb-0 small">&copy; 2025 Todos los derechos reservados.</p>
+                </div>
+            </footer>
+        </section>
+    </div> {# CIERRE DEL DIV main-content #}
+
+    {% if not user.is_authenticated %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+        const popoverList = [...popoverTriggerList].map(el => new bootstrap.Popover(el));
+    });
+</script>
+    {% endif %}
+
+<script src="{% static 'js/carrito.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    </body>
+</html>

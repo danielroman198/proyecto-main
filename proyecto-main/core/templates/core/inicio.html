@@ -1,0 +1,263 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/global.css'%}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <section class="bg">
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand {% if request.resolver_match.url_name == 'inicio' %}fw-bold{% endif %}" href="{% url 'inicio' %}">
+      MANAKEA TOURS
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'hospedaje' %}active{% endif %}" href="{% url 'hospedaje' %}">HOSPEDAJES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'actividad' %}active{% endif %}" href="{% url 'actividad' %}">ACTIVIDADES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'gastronomia' %}active{% endif %}" href="{% url 'gastronomia' %}">GASTRONOMÍA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'registro' %}active{% endif %}" href="{% url 'registro' %}">
+            <i class="bi bi-person-circle"></i> Registra tu cuenta
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}" href="{% url 'login' %}">
+            <i class="bi bi-person-circle"></i> Inicio de Sesión
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- CAROUSEL PRINCIPAL CON TEXTO -->
+<div id="carouselExampleSlidesOnly" class="carousel slide border border-white" data-bs-ride="carousel" style="height: 350px;">
+  <div class="carousel-inner h-100">
+    <div class="carousel-item active position-relative h-100">
+      <img src="https://www.cvc.com.br/dicas-de-viagem/wp-content/uploads/2019/09/cajon-del-maipo-embalse-el-yeso-chile.jpg"
+           class="d-block w-100 h-100 object-fit-cover" alt="Embalse El Yeso, Cajón del Maipo">
+      <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white bg-dark bg-opacity-50">
+        <h1 class="h3">BIENVENIDO A MANAKEA TOURS</h1>
+        <p class="lead">Conecta con lo auténtico, viaja con el alma</p>
+      </div>
+    </div>
+  </div>
+</div>
+<p></p>
+<!-- SECCIÓN QUIÉNES SOMOS + IMAGEN DEL LUGAR -->
+<div class="container mt">
+  <div class="row">
+    <!-- Columna de texto -->
+    <div class="col-md-6 mb-4">
+      <div class="border p-4 h-100" style="background-color: rgba(0, 0, 0, 0.5);">
+        <h5 class="text-white fs-5" style="text-shadow: 1px 1px 3px black;">QUIENES SOMOS</h5>
+        <p class="text-white fs-6" style="text-shadow: 1px 1px 3px black;">
+          Manakea Tours es una plataforma de turismo integral enfocada en 
+          ofrecer experiencias auténticas en el corazón del Cajón del Maipo.
+          Nos apasiona conectar a las personas con la naturaleza, la cultura 
+          y la hospitalidad de uno de los destinos más fascinantes de nuestra región.</p>  
+        <p class="text-white fs-6" style="text-shadow: 1px 1px 3px black;">
+          Creamos un e-commerce pensado para facilitar el acceso a lo mejor 
+          del Cajón del Maipo, combinando actividades al aire libre, gastronomía local 
+          y hospedajes únicos, todo desde un solo lugar. Ya sea que busques aventura, 
+          descanso o una escapada gastronómica, en Manakea Tours encontrarás una experiencia 
+          a tu medida.</p>
+      </div>
+    </div>
+
+    <!-- Columna de carrusel -->
+    <div class="col-md-6 mb-4">
+      <div class="border p-4 h-100" style="background-color: rgba(0, 0, 0, 0.5);">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="https://www.cvc.com.br/dicas-de-viagem/wp-content/uploads/2019/09/cajon-del-maipo-el-morado-chile.jpg" class="d-block w-100" alt="El Morado">
+            </div>
+            <div class="carousel-item">
+              <img src="https://www.cvc.com.br/dicas-de-viagem/wp-content/uploads/2019/09/cajon-del-maipo-termas-del-plomo-chile.jpg" class="d-block w-100" alt="Termas del Plomo">
+            </div>
+            <div class="carousel-item">
+              <img src="https://www.adventurouskate.com/wp-content/uploads/2024/04/Portillo-Inca-Lagoon-Things-to-Do-in-Santiago-Chile-768x512.jpg" class="d-block w-100" alt="Cajón del Maipo">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- CARD ACTIVIDADES-->
+<div class="container my-5">
+  <div class="row justify-content-center gx-5">
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/02/b6/93/3e/hotel-casa-bosque.jpg?w=1200&h=-1&s=1" class="card-img-top" alt="Hospedaje">
+        <div class="card-body">
+          <h5 class="card-title">HOSPEDAJES</h5>
+          <p class="card-text">Encuentra lugares únicos para alojarte.</p>
+          <a href="{% url 'hospedaje'%}" class="btn btn-primary">Ver más</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <img src="https://cuponassets.cuponatic-latam.com/backendCl/uploads/imagenes_descuentos/329899/b79621b5351ddf001b5f74e5271e519ae8a71328.XL2.jpg" class="card-img-top" alt="Actividades">
+        <div class="card-body">
+          <h5 class="card-title">ACTIVIDADES</h5>
+          <p class="card-text">Explora experiencias inolvidables.</p>
+          <a href="{% url 'actividad'%}" class="btn btn-primary">Ver más</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <img src="https://www.cajondelmaipo.com/wp-content/uploads/2022/10/restaurantes_cajon_del_maipo.jpg" class="card-img-top" alt="Gastronomía">
+        <div class="card-body">
+          <h5 class="card-title">GASTRONOMIA</h5>
+          <p class="card-text">Sabores que te harán volver.</p>
+          <a href="{% url 'gastronomia'%}" class="btn btn-primary">Ver más</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section-clima-mapa my-5">
+  <div class="container">
+    <div class="row justify-content-center gap-4">
+
+      <!-- API CLIMA -->
+      <div class="col-md-5 clima-box">
+        <div class="card-custom">
+          <h5 class="text-center text-primary fw-bold">
+            <i class="fas fa-cloud-sun fa-lg me-2"></i> CLIMA ACTUAL</h5>
+          <div id="clima" class="text-center mt-3">
+            <div class="icono-decorativo"><i class="fas fa-sun"></i></div>
+            <p id="ciudad">Cargando ciudad...</p>
+            <p id="temperatura">Cargando temperatura...</p>
+            <p id="descripcion">Cargando descripción...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- API MAPA -->
+      <div class="col-md-5 mapa-box">
+        <div class="card-custom">
+          <h5 class="text-center text-primary fw-bold">
+            <i class="fas fa-map-marker-alt fa-lg me-2"></i> UBICACIÓN EN EL MAPA </h5>
+          <div id="map" style="height: 300px; border-radius: 10px;"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+<!-- Script para obtener el clima, consumiendo la API -->
+<script>
+  const apiKeyWeather = "1e300d5e48a8b7b31c6bb73937d9ec43";
+  const ciudad = "san jose de maipo,santiago";
+
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKeyWeather}&units=metric&lang=es`)
+    .then(res => res.json())
+    .then(data => {
+      const temp = data.main.temp;
+      const descripcion = data.weather[0].description;
+      const ciudad = data.name;
+      const icono = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+
+      
+      document.getElementById("temperatura").textContent = `Temperatura: ${temp}°C`;
+      document.getElementById("descripcion").textContent = `Descripción: ${descripcion}`;
+      document.getElementById("ciudad").textContent = `Ciudad: ${ciudad}`;
+      document.getElementById("icono").src = icono;
+    })
+    .catch(err => console.log(err));
+</script>
+
+<!-- Script para inicializar Google Maps y coordenadas --> 
+<script>
+  function initMap() {
+    const cajonMaipo = { lat: -33.75, lng: -70.35 };  // Coordenadas del Cajón del Maipo
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 10,
+      center: cajonMaipo,
+    });
+    new google.maps.Marker({
+      position: cajonMaipo,
+      map: map,
+      title: "CAJON DEL MAIPO"
+    });
+  }
+</script>
+</section>
+
+<!-- Footer con redes sociales -->
+<footer class="bg-dark text-center text-white py-4 mt-5">
+  <div class="container">
+    <div class="mb-3">
+      <a href="https://www.instagram.com" target="_blank" class="btn btn-outline-light mx-1">
+        <i class="bi bi-instagram"></i>
+      </a>
+      <a href="https://www.twitter.com" target="_blank" class="btn btn-outline-light mx-1">
+        <i class="bi bi-twitter"></i>
+      </a>
+      <a href="https://www.tiktok.com" target="_blank" class="btn btn-outline-light mx-1">
+        <i class="bi bi-tiktok"></i>
+      </a>
+      <a href="https://www.facebook.com" target="_blank" class="btn btn-outline-light mx-1">
+        <i class="bi bi-facebook"></i>
+      </a>
+    </div>
+    <p class="mb-0 small">&copy; 2025 Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- Script para cargar Google Maps -->
+<script async
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYqeLHZ9y433qxiJ2xwTxKTyq8cnF5TlU&callback=initMap">
+</script> 
+
+</body>
+</html>
