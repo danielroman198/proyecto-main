@@ -4,92 +4,291 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio</title>
+    <title>Perfil de Usuario - MANAKEA TOURS</title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{% static 'css/global.css'%}">
+    <link rel="stylesheet" href="{% static 'css/global.css'%}"> {# Aquí se enlaza tu archivo CSS #}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
+    {# Asegúrate de que estas URLs de CDN sean correctas y funcionales. #}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    {# ¡IMPORTANTE: ASEGÚRATE DE QUE NO HAYA NINGUNA SECCIÓN <style> AQUÍ DENTRO! #}
+    {# Todas las reglas de estilo de perfil ahora están en global.css #}
+
 </head>
 <body>
 
-  <section class="bg">
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="{% url 'inicio'%}">MANAKEA TOURS</a>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    {% if user.is_authenticated %}
-                        <li class="nav-item d-flex align-items-center">
-                            <span class="nav-link welcome-message">BIENVENIDO {{ user.nombre|upper }} {{ user.apellido|upper }}</span>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'hospedaje' %}">HOSPEDAJE</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'actividad' %}">ACTIVIDADES</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'gastronomia' %}">GASTRONOMÍA</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'perfil' %}">PERFIL</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'carrito' %}">
-                                <i class="bi bi-cart"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-outline-danger btn-sm ms-2" href="{% url 'logout' %}">Cerrar Sesión</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'registro' %}">Registrarse</a>
-                        </li>
-                    {% endif %}
-                </ul>
+    <section class="bg-5">
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="{% url 'inicio'%}">MANAKEA TOURS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item d-flex align-items-center">
+                                <span class="nav-link welcome-message">BIENVENIDO {{ user.nombre|upper }} {{ user.apellido|upper }}</span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'hospedaje' %}">HOSPEDAJE</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'actividad' %}">ACTIVIDADES</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'gastronomia' %}">GASTRONOMÍA</a>
+                            </li>
+                            {% if user.is_cliente %} {# Solo clientes ven el carrito en la navbar #}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'carrito' %}">
+                                        <i class="bi bi-cart"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-outline-danger btn-sm ms-2" href="{% url 'logout' %}">
+                                    <i class="bi bi-box-arrow-right me-1"></i> Cerrar Sesión
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'registro' %}">Registrarse</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
+        </nav>
+
+        {# ----------------- CONTENIDO PRINCIPAL DE LA PÁGINA DE PERFIL ----------------- #}
+        <div class="container my-5">
+            <h1 class="text-center mb-4 text-white" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">Mi Perfil</h1>
+
+            {% if user.is_authenticated %}
+                <div class="row profile-row justify-content-center">
+                    {# Columna para Datos Personales (Visible para todos los roles) #}
+                    {# Mantenemos col-md-8 para Anfitriones/Administradores para que sea más ancha #}
+                    <div class="col-12 {% if user.is_cliente %}col-md-5{% else %}col-md-8{% endif %} profile-card-col mb-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-header text-white d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0">Datos Personales</h4>
+                                {# El botón Modificar es visible para todos los roles #}
+                                <button type="button" class="btn btn-outline-light btn-sm" id="toggleEditButton">
+                                    <i class="bi bi-pencil-square me-1"></i> Modificar
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                {% if messages %}
+                                    <ul class="messages list-unstyled">
+                                        {% for message in messages %}
+                                            <li {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+
+                                <div id="staticData">
+                                    <p><strong>Nombre:</strong> <span>{{ user.nombre }}</span></p>
+                                    <p><strong>Apellido:</strong> <span>{{ user.apellido }}</span></p>
+                                    <p><strong>Correo:</strong> <span>{{ user.correo }}</span></p>
+                                    <p><strong>Teléfono:</strong> <span>{{ user.telefono|default:"No registrado" }}</span></p>
+                                    <p><strong>Rol:</strong> 
+                                        <span>
+                                            {% if user.is_cliente %}Cliente
+                                            {% elif user.is_anfitrion %}Anfitrión
+                                            {% elif user.is_administrador %}Administrador
+                                            {% else %}Desconocido (Rol no definido)
+                                            {% endif %}
+                                        </span>
+                                    </p>
+                                </div>
+
+                                {# Contenedor para el formulario de edición (visible para todos) #}
+                                <div id="editForm" style="display: none;">
+                                    <form method="post" action="{% url 'perfil' %}" id="profileUpdateForm">
+                                        {% csrf_token %}
+                                        {# Renderiza cada campo del formulario manualmente para mayor control #}
+                                        {% for field in form %}
+                                            <div class="mb-3">
+                                                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                                                {{ field }}
+                                                {% if field.help_text %}
+                                                    <div class="form-text">{{ field.help_text }}</div>
+                                                {% endif %}
+                                                {% for error in field.errors %}
+                                                    <div class="alert alert-danger mt-1">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endfor %}
+                                        <button type="submit" class="btn btn-success mt-3" id="saveChangesButton">Guardar Cambios</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# Columna para Mis Reservas (SOLO VISIBLE PARA CLIENTES) #}
+                    {% if user.is_cliente %}
+                        <div class="col-12 col-md-7 profile-card-col mb-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-header text-white">
+                                    <h4 class="mb-0">Mis Reservas</h4>
+                                </div>
+                                <div class="card-body">
+                                    {% if reservas %}
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Tipo</th>
+                                                        <th>Servicio</th>
+                                                        <th>Fecha Inicio</th>
+                                                        <th>Fecha Fin</th>
+                                                        <th>Estado</th>
+                                                        <th>Total</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for reserva in reservas %}
+                                                        <tr>
+                                                            <td>{{ reserva.tipo_servicio }}</td>
+                                                            <td>{{ reserva.nombre_servicio }}</td>
+                                                            <td>{{ reserva.fecha_inicio|date:"d/m/Y" }}</td>
+                                                            <td>{{ reserva.fecha_fin|date:"d/m/Y" }}</td>
+                                                            <td>
+                                                                {% if reserva.estado_display %}
+                                                                    {% comment %}
+                                                                        Asegúrate de que 'estado_display' contenga el texto exacto ('Pendiente', 'Confirmado', etc.)
+                                                                        para que las clases se apliquen correctamente.
+                                                                    {% endcomment %}
+                                                                    {% if reserva.estado_display == 'Pendiente' %}
+                                                                        <span class="badge bg-warning text-dark">{{ reserva.estado_display }}</span>
+                                                                    {% elif reserva.estado_display == 'Confirmado' %}
+                                                                        <span class="badge bg-success">{{ reserva.estado_display }}</span>
+                                                                    {% elif reserva.estado_display == 'Cancelado' %}
+                                                                        <span class="badge bg-danger">{{ reserva.estado_display }}</span>
+                                                                    {% elif reserva.estado_display == 'Completado' %}
+                                                                        <span class="badge bg-secondary">{{ reserva.estado_display }}</span>
+                                                                    {% else %}
+                                                                        <span class="badge bg-info">{{ reserva.estado_display }}</span>
+                                                                    {% endif %}
+                                                                {% else %}
+                                                                    {# Fallback si estado_display no está definido o es nulo #}
+                                                                    <span class="badge bg-secondary">{{ reserva.estado|capfirst }}</span>
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>${{ reserva.total|floatformat:0 }}</td>
+                                                            <td>
+                                                                {# Aquí puedes añadir el enlace a la vista de detalle de la reserva si la creas #}
+                                                                {# <a href="{% url 'detalle_reserva' reserva.id %}" class="btn btn-sm btn-outline-primary" title="Ver Detalles"><i class="bi bi-eye"></i></a> #}
+                                                                {# Si implementas cancelar_reserva, asegúrate de tener la URL y vista correspondiente #}
+                                                                {# {% if reserva.estado_display == 'Pendiente' %} #}
+                                                                {# <a href="{% url 'cancelar_reserva' reserva.id %}" class="btn btn-sm btn-outline-danger" title="Cancelar Reserva"><i class="bi bi-x-circle"></i></a> #}
+                                                                {# {% endif %} #}
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    {% else %}
+                                        <div class="alert alert-info text-center" role="alert">
+                                            No tienes reservas realizadas aún.
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {# FIN Columna para Mis Reservas #}
+
+                </div>
+            {% else %}
+                <div class="alert alert-warning text-center" role="alert">
+                    Debes iniciar sesión para ver tu perfil.
+                </div>
+            {% endif %}
         </div>
-    </nav>
+        {# ----------------- FIN CONTENIDO PRINCIPAL DE LA PÁGINA DE PERFIL ----------------- #}
 
 
+        <footer class="bg-dark text-center text-white py-4 mt-5">
+            <div class="container">
+                <div class="mb-3">
+                    <a href="https://www.instagram.com" target="_blank" class="btn btn-outline-light mx-1">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a href="https://www.twitter.com" target="_blank" class="btn btn-outline-light mx-1">
+                        <i class="bi bi-twitter"></i>
+                    </a>
+                    <a href="https://www.tiktok.com" target="_blank" class="btn btn-outline-light mx-1">
+                        <i class="bi bi-tiktok"></i>
+                    </a>
+                    <a href="https://www.facebook.com" target="_blank" class="btn btn-outline-light mx-1">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                </div>
+                <p class="mb-0 small">&copy; 2025 Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const staticData = document.getElementById('staticData');
+            const editForm = document.getElementById('editForm');
+            const toggleEditButton = document.getElementById('toggleEditButton');
+            const profileUpdateForm = document.getElementById('profileUpdateForm');
 
-<!-- Footer con redes sociales -->
-<footer class="bg-dark text-center text-white py-4 mt-5">
-  <div class="container">
-    <div class="mb-3">
-      <a href="https://www.instagram.com" target="_blank" class="btn btn-outline-light mx-1">
-        <i class="bi bi-instagram"></i>
-      </a>
-      <a href="https://www.twitter.com" target="_blank" class="btn btn-outline-light mx-1">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="https://www.tiktok.com" target="_blank" class="btn btn-outline-light mx-1">
-        <i class="bi bi-tiktok"></i>
-      </a>
-      <a href="https://www.facebook.com" target="_blank" class="btn btn-outline-light mx-1">
-        <i class="bi bi-facebook"></i>
-      </a>
-    </div>
-    <p class="mb-0 small">&copy; 2025 Todos los derechos reservados.</p>
-  </div>
-</footer>
-</section>
+            function toggleEditMode(forceEdit = false) {
+                if (forceEdit || staticData.style.display === 'block') {
+                    // Si estamos en modo estático o forzamos edición, cambiar a edición
+                    staticData.style.display = 'none';
+                    editForm.style.display = 'block';
+                    toggleEditButton.innerHTML = '<i class="bi bi-x-circle me-1"></i> Cancelar Edición';
+                    toggleEditButton.classList.remove('btn-outline-light');
+                    toggleEditButton.classList.add('btn-warning');
+                } else {
+                    // Si estamos en modo edición, cambiar a estático
+                    staticData.style.display = 'block';
+                    editForm.style.display = 'none';
+                    toggleEditButton.innerHTML = '<i class="bi bi-pencil-square me-1"></i> Modificar';
+                    toggleEditButton.classList.remove('btn-warning');
+                    toggleEditButton.classList.add('btn-outline-light');
+                }
+            }
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            toggleEditButton.addEventListener('click', function() {
+                toggleEditMode(); // No forzamos aquí, solo alternamos
+            });
 
+            // Si el formulario fue enviado y tiene errores (POST request), mantener en modo edición
+            // El valor 'form_submitted' se pasa desde la vista de Django
+            if ({{ form_submitted|yesno:"true,false" }}) {
+                // Verificar si hay errores en el formulario
+                const formHasErrors = profileUpdateForm.querySelector('.alert-danger') || profileUpdateForm.querySelector('.is-invalid');
+                if (formHasErrors) {
+                    toggleEditMode(true); // Forzar la entrada en modo edición si hay errores
+                }
+            }
 
-<!-- Script para cargar Google Maps -->
-<script async
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYqeLHZ9y433qxiJ2xwTxKTyq8cnF5TlU&callback=initMap">
-</script> 
+            // Opcional: Para mantener el foco en el primer campo del formulario al abrirlo
+            toggleEditButton.addEventListener('click', function() {
+                if (editForm.style.display === 'block') {
+                    const firstInput = editForm.querySelector('input, select, textarea');
+                    if (firstInput) {
+                        firstInput.focus();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

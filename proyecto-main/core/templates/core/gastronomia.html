@@ -62,8 +62,10 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link btn btn-outline-danger btn-sm ms-2" href="{% url 'logout' %}">Cerrar Sesión</a>
-                                    </li>
+                                <a class="nav-link btn btn-outline-danger btn-sm ms-2" href="{% url 'logout' %}">
+                                    <i class="bi bi-box-arrow-right me-1"></i> Cerrar Sesión
+                                </a>
+                                </li>
                                 {% else %}
                                     <li class="nav-item">
                                         <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
@@ -102,10 +104,10 @@
                                 <p>Vive la experiencia de sabores únicos en un ambiente rústico y acogedor, con lo mejor de la cocina chilena tradicional.</p>
                                 {% if user.is_authenticated %}
                                     {# Si el usuario está autenticado, el botón enlaza a la página de reserva real #}
-                                    <a href="{% url 'carrito'  %}" class="btn btn-success">Reservar</a>
+                                    <a href="{% url 'carrito' %}" class="btn btn-success **btn-reservar**">Reservar</a>
                                 {% else %}
                                     {# Si no está autenticado, muestra el popover #}
-                                    <button type="button" class="btn btn-primary"
+                                    <button type="button" class="btn btn-primary **btn-reservar**"
                                     data-bs-toggle="popover" data-bs-placement="left"
                                     data-bs-custom-class="custom-popover"
                                     data-bs-title="Advertencia"
@@ -122,10 +124,10 @@
                                 <p>Descubre un lugar mágico entre los árboles, donde la arquitectura encantada y la gastronomía gourmet se fusionan en una experiencia inolvidable.</p>
                                 {% if user.is_authenticated %}
                                     {# Si el usuario está autenticado, el botón enlaza a la página de reserva real #}
-                                    <a href="{% url 'carrito'  %}" class="btn btn-success">Reservar</a>
+                                    <a href="{% url 'carrito' %}" class="btn btn-success **btn-reservar**">Reservar</a>
                                 {% else %}
                                     {# Si no está autenticado, muestra el popover #}
-                                    <button type="button" class="btn btn-primary"
+                                    <button type="button" class="btn btn-primary **btn-reservar**"
                                     data-bs-toggle="popover" data-bs-placement="left"
                                     data-bs-custom-class="custom-popover"
                                     data-bs-title="Advertencia"
@@ -142,10 +144,10 @@
                                 <p>Déjate seducir por los aromas y sabores de Francia en el corazón del Cajón del Maipo. Elegancia, romanticismo y alta cocina te esperan.</p>
                                 {% if user.is_authenticated %}
                                     {# Si el usuario está autenticado, el botón enlaza a la página de reserva real #}
-                                    <a href="{% url 'carrito'  %}" class="btn btn-success">Reservar</a>
+                                    <a href="{% url 'carrito' %}" class="btn btn-success **btn-reservar**">Reservar</a>
                                 {% else %}
                                     {# Si no está autenticado, muestra el popover #}
-                                    <button type="button" class="btn btn-primary"
+                                    <button type="button" class="btn btn-primary **btn-reservar**"
                                     data-bs-toggle="popover" data-bs-placement="left"
                                     data-bs-custom-class="custom-popover"
                                     data-bs-title="Advertencia"
@@ -167,10 +169,10 @@
                                 <p>Sabores italianos auténticos con un toque familiar. Pastas artesanales, vinos seleccionados y un ambiente que te transporta a la Toscana.</p>
                                 {% if user.is_authenticated %}
                                     {# Si el usuario está autenticado, el botón enlaza a la página de reserva real #}
-                                    <a href="{% url 'carrito'  %}" class="btn btn-success">Reservar</a>
+                                    <a href="{% url 'carrito' %}" class="btn btn-success **btn-reservar**">Reservar</a>
                                 {% else %}
                                     {# Si no está autenticado, muestra el popover #}
-                                    <button type="button" class="btn btn-primary"
+                                    <button type="button" class="btn btn-primary **btn-reservar**"
                                     data-bs-toggle="popover" data-bs-placement="left"
                                     data-bs-custom-class="custom-popover"
                                     data-bs-title="Advertencia"
@@ -187,10 +189,10 @@
                                 <p>Ideal para disfrutar en familia, rodeado de naturaleza y con una propuesta culinaria fresca y local que encanta a grandes y chicos.</p>
                                 {% if user.is_authenticated %}
                                     {# Si el usuario está autenticado, el botón enlaza a la página de reserva real #}
-                                    <a href="{% url 'carrito'  %}" class="btn btn-success">Reservar</a>
+                                    <a href="{% url 'carrito' %}" class="btn btn-success **btn-reservar**">Reservar</a>
                                 {% else %}
                                     {# Si no está autenticado, muestra el popover #}
-                                    <button type="button" class="btn btn-primary"
+                                    <button type="button" class="btn btn-primary **btn-reservar**"
                                     data-bs-toggle="popover" data-bs-placement="left"
                                     data-bs-custom-class="custom-popover"
                                     data-bs-title="Advertencia"
@@ -207,10 +209,10 @@
                                 <p>Una joya culinaria escondida entre montañas. Ambiente cálido, atención personalizada y platos que celebran la tradición gourmet de la zona.</p>
                                 {% if user.is_authenticated %}
                                     {# Si el usuario está autenticado, el botón enlaza a la página de reserva real #}
-                                    <a href="{% url 'carrito'  %}" class="btn btn-success">Reservar</a>
+                                    <a href="{% url 'carrito' %}" class="btn btn-success **btn-reservar**">Reservar</a>
                                 {% else %}
                                     {# Si no está autenticado, muestra el popover #}
-                                    <button type="button" class="btn btn-primary"
+                                    <button type="button" class="btn btn-primary **btn-reservar**"
                                     data-bs-toggle="popover" data-bs-placement="left"
                                     data-bs-custom-class="custom-popover"
                                     data-bs-title="Advertencia"

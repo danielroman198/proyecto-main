@@ -4,27 +4,47 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio</title>
+    <title>Manakea - Inicio Registrado</title>
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'css/global.css'%}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/carrito.css'%}">
+
 </head>
 <body>
 
-  <section class="bg">
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<div id="carrito-desplegable" class="carrito-desplegable">
+    <div class="carrito-contenido">
+        <h3>Tu Carrito</h3>
+        <div id="items-carrito">
+            <p>El carrito está vacío.</p>
+        </div>
+        <div class="carrito-total">
+            <strong>Total: $<span id="total-carrito">0</span></strong>
+        </div>
+        <a href="{% url 'carrito' %}" class="btn btn-success btn-block">Ir al Carrito Completo</a>
+    </div>
+</div>
+
+<section class="bg" id="main-content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand fw-bold" href="{% url 'inicio'%}">MANAKEA TOURS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
                         <li class="nav-item d-flex align-items-center">
-                            <span class="nav-link welcome-message">BIENVENIDO {{ user.nombre|upper }} {{ user.apellido|upper }}</span>
+                            <span class="nav-link welcome-message">
+                                BIENVENIDO {{ user.nombre|upper }} {{ user.apellido|upper }}
+                                {% if user.tipo_usuario %}
+                                    <span class="user-role">({{ user.tipo_usuario.tipo_nombre|upper }})</span>
+                                {% endif %}
+                            </span>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'hospedaje' %}">HOSPEDAJE</a>
@@ -39,13 +59,15 @@
                             <a class="nav-link" href="{% url 'perfil' %}">PERFIL</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'carrito' %}">
+                            <a class="nav-link carrito-trigger" href="#">
                                 <i class="bi bi-cart"></i>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-outline-danger btn-sm ms-2" href="{% url 'logout' %}">Cerrar Sesión</a>
-                        </li>
+                                <a class="nav-link btn btn-outline-danger btn-sm ms-2" href="{% url 'logout' %}">
+                                    <i class="bi bi-box-arrow-right me-1"></i> Cerrar Sesión
+                                </a>
+                            </li>
                     {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
@@ -59,37 +81,173 @@
         </div>
     </nav>
 
-
-
-
-
-<!-- Footer con redes sociales -->
-<footer class="bg-dark text-center text-white py-4 mt-5">
-  <div class="container">
-    <div class="mb-3">
-      <a href="https://www.instagram.com" target="_blank" class="btn btn-outline-light mx-1">
-        <i class="bi bi-instagram"></i>
-      </a>
-      <a href="https://www.twitter.com" target="_blank" class="btn btn-outline-light mx-1">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="https://www.tiktok.com" target="_blank" class="btn btn-outline-light mx-1">
-        <i class="bi bi-tiktok"></i>
-      </a>
-      <a href="https://www.facebook.com" target="_blank" class="btn btn-outline-light mx-1">
-        <i class="bi bi-facebook"></i>
-      </a>
+    <div id="carouselExampleSlidesOnly" class="carousel slide border border-white" data-bs-ride="carousel" style="height: 350px;">
+        <div class="carousel-inner h-100">
+            <div class="carousel-item active position-relative h-100">
+                <img src="https://www.cvc.com.br/dicas-de-viagem/wp-content/uploads/2019/09/cajon-del-maipo-embalse-el-yeso-chile.jpg"
+                     class="d-block w-100 h-100 object-fit-cover" alt="Embalse El Yeso, Cajón del Maipo">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white bg-dark bg-opacity-50">
+                    <h1 class="h3">BIENVENIDO A MANAKEA TOURS</h1>
+                    <p class="lead">Conecta con lo auténtico, viaja con el alma</p>
+                    {% if user.tipo_usuario %}
+                        <p class="lead">Eres un: <span class="fw-bold">{{ user.tipo_usuario.tipo_nombre|upper }}</span></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
-    <p class="mb-0 small">&copy; 2025 Todos los derechos reservados.</p>
-  </div>
-</footer>
-</section>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="container mt-4">
+        {% if user.is_authenticated and user.tipo_usuario and user.tipo_usuario.tipo_nombre == 'administrador' %}
+            <div class="alert alert-info" role="alert">
+                <h4>Panel de Administración</h4>
+                <p>Acciones rápidas para el administrador:</p>
+                <ul>
+                    <li><a href="/admin/">Ir al Panel de Administración de Django</a></li>
+                    {# Aquí puedes agregar más enlaces específicos para el administrador #}
+                </ul>
+            </div>
+        {% elif user.is_authenticated and user.tipo_usuario and user.tipo_usuario.tipo_nombre == 'anfitrion' %}
+            <div class="alert alert-success" role="alert">
+                <h4>Panel de Anfitrión</h4>
+                <p>Bienvenido, anfitrión. Aquí tienes acceso rápido a tus herramientas:</p>
+                <ul>
+                    <li><a href="{% url 'listar_servicios_anfitrion' %}">Gestionar Mis Servicios</a></li>
+                    <li><a href="{% url 'listar_reservas_anfitrion' %}">Ver Reservas de Mis Servicios</a></li>
+                    {# Aquí puedes agregar más enlaces específicos para el anfitrión #}
+                </ul>
+            </div>
+        {% else %}
+            <div class="container my-5">
+                <div class="row justify-content-center gx-5">
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/02/b6/93/3e/hotel-casa-bosque.jpg?w=1200&h=-1&s=1" class="card-img-top" alt="Hospedaje">
+                            <div class="card-body">
+                                <h5 class="card-title">HOSPEDAJES</h5>
+                                <p class="card-text">Encuentra lugares únicos para alojarte.</p>
+                                <a href="{% url 'hospedaje'%}" class="btn btn-primary">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="https://cuponassets.cuponatic-latam.com/backendCl/uploads/imagenes_descuentos/329899/b79621b5351ddf001b5f74e5271e519ae8a71328.XL2.jpg" class="card-img-top" alt="Actividades">
+                            <div class="card-body">
+                                <h5 class="card-title">ACTIVIDADES</h5>
+                                <p class="card-text">Explora experiencias inolvidables.</p>
+                                <a href="{% url 'actividad'%}" class="btn btn-primary">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
 
-<!-- Script para cargar Google Maps -->
-<script async
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYqeLHZ9y433qxiJ2xwTxKTyq8cnF5TlU&callback=initMap">
-</script> 
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="https://www.cajondelmaipo.com/wp-content/uploads/2022/10/restaurantes_cajon_del_maipo.jpg" class="card-img-top" alt="Gastronomía">
+                            <div class="card-body">
+                                <h5 class="card-title">GASTRONOMIA</h5>
+                                <p class="card-text">Sabores que te harán volver.</p>
+                                <a href="{% url 'gastronomia'%}" class="btn btn-primary">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <section class="section-clima-mapa my-5">
+        <div class="container">
+            <div class="row justify-content-center gap-4">
+
+                <div class="col-md-5 clima-box">
+                    <div class="card-custom">
+                        <h5 class="text-center text-primary fw-bold">
+                            <i class="fas fa-cloud-sun fa-lg me-2"></i> CLIMA ACTUAL</h5>
+                        <div id="clima" class="text-center mt-3">
+                            <div class="icono-decorativo"><i class="fas fa-sun"></i></div>
+                            <p id="ciudad">Cargando ciudad...</p>
+                            <p id="temperatura">Cargando temperatura...</p>
+                            <p id="descripcion">Cargando descripción...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5 mapa-box">
+                    <div class="card-custom">
+                        <h5 class="text-center text-primary fw-bold">
+                            <i class="fas fa-map-marker-alt fa-lg me-2"></i> UBICACIÓN EN EL MAPA </h5>
+                        <div id="map" style="height: 300px; border-radius: 10px;"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+            const apiKeyWeather = "1e300d5e48a8b7b31c6bb73937d9ec43";
+            const ciudad = "san jose de maipo,santiago";
+
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKeyWeather}&units=metric&lang=es`)
+                .then(res => res.json())
+                .then(data => {
+                    const temp = data.main.temp;
+                    const descripcion = data.weather[0].description;
+                    const ciudad = data.name;
+                    // const icono = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`; // No se usa en el HTML proporcionado
+
+                    document.getElementById("temperatura").textContent = `Temperatura: ${temp}°C`;
+                    document.getElementById("descripcion").textContent = `Descripción: ${descripcion}`;
+                    document.getElementById("ciudad").textContent = `Ciudad: ${ciudad}`;
+                    // document.getElementById("icono").src = icono; // Asegúrate de tener un elemento con id="icono" si lo usas
+                })
+                .catch(err => console.log(err));
+        </script>
+
+        <script>
+            function initMap() {
+                const cajonMaipo = { lat: -33.75, lng: -70.35 };
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 10,
+                    center: cajonMaipo,
+                });
+                new google.maps.Marker({
+                    position: cajonMaipo,
+                    map: map,
+                    title: "CAJON DEL MAIPO"
+                });
+            }
+        </script>
+    </section>
+
+    <footer class="bg-dark text-center text-white py-4 mt-5">
+        <div class="container">
+            <div class="mb-3">
+                <a href="https://www.instagram.com" target="_blank" class="btn btn-outline-light mx-1">
+                    <i class="bi bi-instagram"></i>
+                </a>
+                <a href="https://www.twitter.com" target="_blank" class="btn btn-outline-light mx-1">
+                    <i class="bi bi-twitter"></i>
+                </a>
+                <a href="https://www.tiktok.com" target="_blank" class="btn btn-outline-light mx-1">
+                    <i class="bi bi-tiktok"></i>
+                </a>
+                <a href="https://www.facebook.com" target="_blank" class="btn btn-outline-light mx-1">
+                    <i class="bi bi-facebook"></i>
+                </a>
+            </div>
+            <p class="mb-0 small">&copy; 2025 Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/carrito.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script async
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYqeLHZ9y433qxiJ2xwTxKTyq8cnF5TlU&callback=initMap">
+    </script>
+
+</body>
+</html>

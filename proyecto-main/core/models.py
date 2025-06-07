@@ -1,3 +1,5 @@
+# core/models.py
+
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db.utils import IntegrityError # Importar para manejar errores de integridad
@@ -111,9 +113,22 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         if self.is_active and self.is_superuser:
             return True
         return True
+    
+    # --- PROPIEDADES PARA ROLES ---
+    @property
+    def is_cliente(self):
+        return self.tipo_usuario and self.tipo_usuario.tipo_nombre == 'cliente'
 
-# --- Otros modelos de tu proyecto (mantén los que ya tienes) ---
-# Asegúrate de que estos modelos también estén correctamente definidos
+    @property
+    def is_anfitrion(self):
+        return self.tipo_usuario and self.tipo_usuario.tipo_nombre == 'anfitrion'
+
+    @property
+    def is_administrador(self):
+        # Un superusuario también es administrador, o si tiene el tipo_usuario 'administrador'
+        return self.is_superuser or (self.tipo_usuario and self.tipo_usuario.tipo_nombre == 'administrador')
+
+# --- Otros modelos de tu proyecto ---
 
 class TipoServicio(models.Model):
     nombre = models.CharField(max_length=100)
@@ -125,7 +140,7 @@ class Servicio(models.Model):
     descripcion = models.TextField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     tipo_servicio = models.ForeignKey(TipoServicio, on_delete=models.CASCADE)
-    anfitrion = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='servicios_ofrecidos')
+    anfitrion = models.ForeignKey('Usuario', on_delete=models.CASCADE, related_name='servicios_ofrecidos') 
 
     def __str__(self):
         return self.nombre
@@ -136,7 +151,7 @@ class EstadoReserva(models.Model):
         return self.estado
 
 class Reserva(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE) 
     fecha_reserva = models.DateTimeField(auto_now_add=True)
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()
@@ -156,7 +171,7 @@ class DetalleReserva(models.Model):
         return f"Detalle de Reserva {self.reserva.id} - {self.servicio.nombre}"
 
 class Carrito(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE) 
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     activo = models.BooleanField(default=True)
 

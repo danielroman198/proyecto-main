@@ -1,121 +1,389 @@
+/* Este es tu archivo static/css/global.css */
+
 body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+    min-height: 100vh; /* Asegura que el body ocupe al menos toda la altura de la ventana */
+    display: flex; /* Habilita Flexbox en el body */
+    flex-direction: column; /* Organiza los elementos hijos en una columna */
+    margin: 0; /* Asegura que no haya márgenes por defecto */
+    padding: 0; /* Asegura que no haya padding por defecto */
 }
 
-.main-content {
-  flex: 1;
+/* El elemento principal que contiene la navbar, el contenido y el footer */
+/* En tu caso, es <section class="bg-5"> */
+.bg-5 {
+    background-image: url(../img/pexels-lastly-633198.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    min-height: 100vh; /* Sigue asegurando que el section ocupe al menos la altura de la ventana */
+    display: flex; /* Habilita Flexbox dentro de este section */
+    flex-direction: column; /* Organiza sus hijos (navbar, contenido, footer) en columna */
+    flex-grow: 1; /* Permite que este section se expanda para llenar el espacio disponible */
 }
+
+/* Contenedor del contenido principal que debe empujar el footer */
+/* Este será el div con la clase 'container my-5' dentro de tu section. */
+/* Le daremos flex-grow: 1 para que ocupe todo el espacio sobrante. */
+.bg-5 > .container.my-5 { /* Apunta al contenedor directo del contenido principal dentro de bg-5 */
+    flex-grow: 1; /* Permite que este contenedor crezca y empuje el footer hacia abajo */
+    padding-top: 20px; /* Ajuste para el padding superior si es necesario */
+    padding-bottom: 20px; /* Ajuste para el padding inferior si es necesario */
+}
+
+
 /* carousel estilo */
-.carousel-lide{
+.carousel-lide {
     min-height: 380px
-  }
+}
 
-  .card-img-top {
+.card-img-top {
     height: 300px;
     object-fit: cover;
-  }
-
-  .card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 250px; 
-  }
-
-  .card-title,
-  .card-text {
-    text-align: center;
-  }
-
-  .btn {
-    margin-top: auto;
-
-  }
-
-  .icono-decorativo {
-  font-size: 80px; /* Tamaño del icono que se le quiere dar */
-  color: rgba(255, 193, 7, 0.4); /* Amarillo del icono */
-  text-align: center;
-  margin-top: 20px;
 }
 
-  .card-custom {
-  background: linear-gradient(135deg, #e0f7fa, #ffffff);
-  border-radius: 15px;
-  padding: 30px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  min-height: 400px; /*Aquí defines la altura mínima del cuadro*/
-  transition: all 0.3s ease;
+/* MODIFICACIÓN CLAVE 1: Eliminamos la altura fija y centrado global de .card-body */
+/* Permitimos que las tarjetas determinen su altura o que reglas más específicas la controlen */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    /* Eliminado: height: 250px; */
+    /* Eliminado: align-items: center; */
+}
+
+.card-title,
+.card-text {
+    text-align: center;
+}
+
+.btn {
+    margin-top: auto;
+}
+
+.icono-decorativo {
+    font-size: 80px;
+    color: rgba(255, 193, 7, 0.4);
+    text-align: center;
+    margin-top: 20px;
+}
+
+.card-custom {
+    background: linear-gradient(135deg, #e0f7fa, #ffffff);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    min-height: 400px;
+    transition: all 0.3s ease;
 }
 
 .card-custom:hover {
-  transform: scale(1.02);
+    transform: scale(1.02);
 }
 
 .section-clima-mapa .row {
-  gap: 30px; /*Separación de 3cm aprox  entre Ambos cuadros CLIMA Y UBICACION*/
+    gap: 30px;
 }
 
-.section-actividades{
-
-  margin-top: 20px;
+.section-actividades {
+    margin-top: 20px;
 }
 
-.section-gastronomia{
-
-  margin-top: 20px;
+.section-gastronomia {
+    margin-top: 20px;
 }
 
 #clima p {
-  font-size: 1.1rem;
-  color: #333;
-  margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 10px;
 }
 
 #map {
-  width: 100%;
-  height: 300px;
-  border: 2px solid #007BFF;
+    width: 100%;
+    height: 300px;
+    border: 2px solid #007BFF;
 }
 
 /* Tamaño de la foto de background de Vista Inicio */
-.bg{
-  background-image: url(../img/cajon-1.jpg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+.bg {
+    background-image: url(../img/cajon-1.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Tamaño de la foto de background de Vista Hospedajes */
-.bg-2{
-  background-image: url(../img/cajon-2.jpg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+.bg-2 {
+    background-image: url(../img/cajon-2.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Tamaño de la foto de background de Vista Actividad */
-.bg-3{
-  background-image: url(../img/cabalgata.jpg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+.bg-3 {
+    background-image: url(../img/cabalgata.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Tamaño de la foto de background de Vista Gastronomia */
-.bg-4{
-  background-image: url(../img/cajon-4.jpg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+.bg-4 {
+    background-image: url(../img/cajon-4.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Popover estilo red */*
-.popover{
-  color: crimson;
+/* Popover estilo red */
+.popover {
+    color: crimson;
+}
+
+/* --- ESTILOS PARA LAS CAJAS DEL PERFIL --- */
+
+/* Estilo para el cuerpo de las tarjetas (Datos Personales y Mis Reservas) */
+.profile-card-col .card { /* Más específico para las tarjetas de perfil */
+    background-color: rgba(0, 0, 0, 0.4); /* Negro muy transparente (40% de opacidad) */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borde blanco muy suave y transparente */
+    min-height: 380px; /* Asegura una altura mínima para la tarjeta */
+    display: flex; /* Habilita Flexbox */
+    flex-direction: column; /* Contenido en columna */
+}
+
+/* Estilo para el encabezado de las tarjetas */
+.profile-card-col .card-header { /* Más específico para los encabezados de perfil */
+    background-color: rgba(0, 0, 0, 0.6); /* Negro un poco más oscuro (60% de opacidad) que el cuerpo */
+    color: white; /* Texto blanco para el encabezado */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Borde inferior blanco suave */
+}
+
+/* Estilo para el CUERPO de la tarjeta de perfil, con texto NEGRO */
+.profile-card-col .card-body {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco casi transparente (80% opacidad) */
+    color: #333; /* Texto gris oscuro/negro para contraste */
+    height: auto; /* IMPORTANTE: Asegura que la altura sea automática y no fija */
+    padding: 1.5rem; /* Aumentamos el padding para más espacio entre el contenido y el borde */
+    flex-grow: 1; /* Permite que el card-body se extienda para llenar el espacio disponible */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente si hay espacio */
+    align-items: center; /* Centra los elementos hijos horizontalmente (incluyendo #staticData) */
+}
+
+/* MODIFICACIÓN CLAVE: Estilos para el contenedor de datos estáticos */
+#staticData {
+    display: flex; /* Habilita Flexbox en el contenedor de datos */
+    flex-direction: column; /* Apila los párrafos verticalmente */
+    width: 100%; /* Ocupa el ancho completo disponible */
+    max-width: 400px; /* Limita el ancho máximo para que no se extienda demasiado en pantallas grandes */
+    text-align: left; /* Alinea el texto dentro de este contenedor a la izquierda */
+}
+
+/* MODIFICACIÓN CLAVE: Estilos para los párrafos de datos estáticos */
+.profile-card-col .card-body p {
+    color: #333; /* Asegura que los párrafos sean negros */
+    margin-bottom: 0.6rem; /* Espaciado entre párrafos, un poco menos para agrupar mejor */
+    font-size: 1.25rem; /* Tamaño de fuente más grande (ajusta según tu gusto: 1.1rem, 1.2rem, 1.3rem) */
+    display: flex; /* Habilita Flexbox dentro de cada párrafo */
+    align-items: baseline; /* Alinea el texto en la línea base para un aspecto más limpio */
+    width: 100%; /* Asegura que el párrafo ocupe el ancho total del #staticData */
+}
+
+/* MODIFICACIÓN CLAVE: Ajuste para las etiquetas en negrita dentro de los párrafos */
+.profile-card-col .card-body p strong {
+    color: #111; /* Un poco más oscuro para las negritas */
+    min-width: 120px; /* Ajusta este valor para alinear perfectamente las etiquetas. Puedes probar con 100px, 130px, etc. */
+    text-align: right; /* Alinea la etiqueta a la derecha para que se pegue al valor */
+    margin-right: 15px; /* Más espacio entre la etiqueta y el valor para separación visual */
+    flex-shrink: 0; /* Evita que la etiqueta se encoja si el espacio es limitado */
+}
+
+/* MODIFICACIÓN CLAVE: Asegura que el texto de los valores ocupe el espacio restante */
+.profile-card-col .card-body p span {
+    flex-grow: 1; /* Permite que el valor ocupe el resto del espacio disponible */
+    text-align: left; /* Alinea el valor a la izquierda */
+    word-break: break-word; /* Rompe palabras largas si es necesario para evitar desbordamiento */
+    overflow-wrap: break-word; /* Soporte para navegadores más nuevos, similar a word-break */
+}
+
+.profile-card-col .card-body p:last-child {
+    margin-bottom: 0; /* Elimina el margen inferior del último párrafo */
 }
 
 
-        
+/* Ajusta los campos de entrada del formulario para que sean claros con texto negro */
+/* El formulario no se centra en la misma "línea" porque es un diseño diferente */
+.profile-card-col .card-body form {
+    width: 100%; /* Ocupa el ancho completo */
+    max-width: 400px; /* Limita el ancho del formulario para que coincida con los datos estáticos */
+    margin-left: auto; /* Centra el formulario horizontalmente */
+    margin-right: auto; /* Centra el formulario horizontalmente */
+    text-align: left; /* Asegura que las etiquetas del formulario se alineen a la izquierda */
+}
+.profile-card-col .card-body form .form-control {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco casi opaco para el input */
+    color: #333; /* Texto negro en el input */
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Borde suave y oscuro */
+}
+.profile-card-col .card-body form .form-control:focus {
+    background-color: white; /* Blanco sólido al enfocar */
+    border-color: #007bff; /* Borde azul de Bootstrap al enfocar */
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+/* Asegura que las etiquetas y textos de ayuda del formulario se vean */
+.profile-card-col .card-body form .form-label,
+.profile-card-col .card-body form .form-text {
+    color: #333; /* Texto negro para etiquetas y ayuda del formulario */
+}
+
+
+/* --- Estilos para los mensajes de Django (success, danger, info, etc.) --- */
+.alert {
+    border: none; /* Quitamos los bordes por defecto de Bootstrap */
+    text-shadow: none; /* Quitamos la sombra de texto para mayor claridad y nitidez */
+    margin-bottom: 15px; /* Espacio debajo de las alertas */
+    font-weight: 500; /* Un poco más de grosor para la fuente */
+}
+
+.alert.alert-success {
+    background-color: rgba(40, 167, 69, 0.9) !important; /* Verde éxito, más opaco (90%) */
+    color: white; /* Texto blanco */
+}
+.alert.alert-danger {
+    background-color: rgba(220, 53, 69, 0.9) !important; /* Rojo peligro, más opaco (90%) */
+    color: white; /* Texto blanco */
+}
+.alert.alert-info {
+    background-color: rgba(23, 162, 184, 0.9) !important; /* Azul info, más opaco (90%) */
+    color: white; /* Texto blanco */
+}
+.alert.alert-warning {
+    background-color: rgba(255, 193, 7, 0.95) !important; /* Amarillo warning, casi opaco (95%) */
+    color: black !important; /* Asegura texto negro para el amarillo */
+}
+/* Puedes añadir más si tienes otros tags como 'primary', 'secondary', etc. */
+.alert.alert-primary {
+    background-color: rgba(13, 110, 253, 0.9) !important; /* Azul primario, más opaco */
+    color: white;
+}
+.alert.alert-secondary {
+    background-color: rgba(108, 117, 125, 0.9) !important; /* Gris secundario, más opaco */
+    color: white;
+}
+
+
+/* Estilo para las insignias (badges) en la tabla de reservas */
+.badge {
+    color: white; /* Texto blanco por defecto para insignias */
+    border-radius: 0.25rem;
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+}
+.badge.bg-warning {
+    color: black !important; /* Asegura que el texto sea negro en el badge amarillo */
+    background-color: rgba(255, 193, 7, 0.8) !important; /* Amarillo con más opacidad */
+}
+.badge.bg-success {
+    background-color: rgba(40, 167, 69, 0.8) !important; /* Verde con más opacidad */
+}
+.badge.bg-danger {
+    background-color: rgba(220, 53, 69, 0.8) !important; /* Rojo con más opacidad */
+}
+.badge.bg-secondary {
+    background-color: rgba(108, 117, 125, 0.8) !important; /* Gris con más opacidad */
+}
+.badge.bg-info {
+    background-color: rgba(23, 162, 184, 0.8) !important; /* Azul con más opacidad */
+}
+
+/* Asegura que el texto de la tabla se vea bien */
+.table th, .table td {
+    color: #333; /* Texto de la tabla negro/gris oscuro */
+    border-color: rgba(0, 0, 0, 0.1); /* Bordes de la tabla muy sutiles y oscuros */
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.03); /* Franjas más claras para las filas impares */
+}
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.08); /* Fondo al pasar el ratón por las filas */
+}
+
+/* Estilo para los botones dentro de las tarjetas */
+.card .btn {
+    border-radius: 0.25rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.card .btn-outline-light {
+    color: white;
+    border-color: white;
+}
+.card .btn-outline-light:hover {
+    background-color: white;
+    color: #333; /* Texto oscuro al pasar el ratón */
+    border-color: white;
+}
+
+.card .btn-success {
+    background-color: rgba(40, 167, 69, 0.9) !important; /* Verde éxito, más opaco */
+    border-color: rgba(40, 167, 69, 0.9) !important;
+    color: white;
+}
+.card .btn-success:hover {
+    background-color: rgba(40, 167, 69, 1) !important; /* Verde opaco al pasar el ratón */
+    border-color: rgba(40, 167, 69, 1) !important;
+}
+
+.card .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Botones de acción en la tabla de reservas */
+.card .btn-outline-primary {
+    color: #0d6efd; /* Puedes cambiar esto si quieres un color no azul */
+    border-color: #0d6efd;
+}
+.card .btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: white;
+}
+.card .btn-outline-danger {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+.card .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Estilos para otras secciones con fondo de imagen (ajustar si es necesario) */
+/* Asegúrate de que todas las secciones con fondo de imagen y contenido tengan esta estructura */
+.bg, .bg-2, .bg-3, .bg-4 {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+/* Y sus contenedores de contenido principales también deberían tener flex-grow: 1 */
+/* Tendrías que revisar la estructura HTML de esas otras páginas para aplicar esto si el footer levita allí también. */
+/* Por ejemplo, si tienes un <div class="container my-5"> dentro de .bg, .bg-2, etc. */
+.bg > .container,
+.bg-2 > .container,
+.bg-3 > .container,
+.bg-4 > .container {
+    flex-grow: 1;
+}
